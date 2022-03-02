@@ -21,7 +21,7 @@ Definition és (x : Boole) (y : Boole) : Boole :=
 Definition vagy (x : Boole) (y : Boole) : Boole :=
   match x with
     |igaz   => igaz
-    |hamais => y
+    |hamis => y
     |lehet  => match y with
       |igaz  => igaz
       |hamis => lehet
