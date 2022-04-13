@@ -26,7 +26,7 @@ roots(B)
 Bplus = 1;
 Bminus = B;
 
-l = 1;
+l = 1;                                      %integrátorok száma
 grBminus = length(Bminus) - 1;
 grAm = 1 + grBminus;
 grA = length(A) - 1;
@@ -34,4 +34,10 @@ grS = grA + 1 -1;
 grR1v = grBminus;
 grAo = grA + 1 - 1;
 Am = poly([z1 z2 ones(1, grAm-2)*zcinf]);
-Ao = poly(ones(1, grAo)*zoinf);  %megfigyelő polinom
+Ao = poly(ones(1, grAo)*zoinf);             %megfigyelő polinom
+Bmv = polyval(Am, 1) / polyval(Bminus, 1);
+%Bmv = sum(Am, 1) / sum(Bminus, 1);
+T = Bmv * Ao;
+AA = conv(A, [1 -1]);                       %[1 -1] az integrátor
+BB = Bminus;
+CC = conv(Am, Ao);
