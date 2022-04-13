@@ -1,37 +1,37 @@
-Inductive Boole : Set :=
-  |igaz   : Boole
-  |hamis  : Boole
-  |lehet  : Boole.
+%%datas
+A = 2;
+T1 = 10;
+T2 = 4;
+T3 = 1;
 
-Definition és (x : Boole) (y : Boole) : Boole :=
-  match x with
-    |igaz => match y with
-      |igaz  => igaz
-      |hamis => hamis
-      |lehet => lehet
-    end
-    |hamis => hamis
-    |lehet => match y with
-      |igaz  => lehet
-      |hamis => hamis
-      |lehet => lehet
-    end
-  end.
+W = tf(A, conv(conv([T1 1],[T2 1]),[T3 1]));
+w0 = 5 / (T1+ T2 + T3);
+xi = 0.7;
+s1 = -xi*w0 + j * w0 *sqrt(1-xi^2);
+s2 = conj(s1);
+scinf = -3 * w0;
+soinf = -5 * w0;
 
-Definition vagy (x : Boole) (y : Boole) : Boole :=
-  match x with
-    |igaz   => igaz
-    |hamis => y
-    |lehet  => match y with
-      |igaz  => igaz
-      |hamis => lehet
-      |lehet => lehet
-    end
- end.
+Ts = 0.2;
+z1 = exp(s1*Ts);
+z2 = exp(s2*Ts);
+zoinf = exp(soinf*Ts);
+zcinf = exp(scinf*Ts);
+D = c2d(W, Ts, 'zoh');
+B = D.num{1};
+B = B(2:end);
+A = D.den{1};
 
-Definition nem (x : Boole) : Boole :=
-  match x with
-    |igaz  => hamis
-    |hamis => igaz
-    |lehet => lehet
-  end.
+roots(B)
+Bplus = 1;
+Bminus = B;
+
+l = 1;
+grBminus = length(Bminus) - 1;
+grAm = 1 + grBminus;
+grA = length(A) - 1;
+grS = grA + 1 -1;
+grR1v = grBminus;
+grAo = grA + 1 - 1;
+Am = poly([z1 z2 ones(1, grAm-2)*zcinf]);
+Ao = poly(ones(1, grAo)*zoinf);  %megfigyelő polinom
