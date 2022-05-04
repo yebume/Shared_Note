@@ -31,7 +31,10 @@ end
 always @(posedge clk or negedge reset_n)
 begin: COUNTER
 	if (reset_n == 0) 
-		cout <= 8'b0;
+	begin
+		cout <= 8'b00000111;
+		dir <= 1'b1;
+		end
 	else 
 		if (enable) 
 		begin
@@ -40,15 +43,16 @@ begin: COUNTER
 			else if (enable_increment) 
 			begin
 				if(cout[6] == 1)begin
+				dir <= 1'b0;
 				end
 				if(cout[1] == 1)begin
+				dir <= 1'b1;
 				end
 				if (dir == 1)	// balra
-					cout <= {cout[6:0] + 1'b0}
-				else
+					cout <= {cout[6:0] , 1'b0};
+				else //jobbra
 					cout <= {1'b0, cout[7:1]};
 			end
 		end
 end
 endmodule
-
